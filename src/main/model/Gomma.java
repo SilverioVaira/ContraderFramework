@@ -2,14 +2,91 @@ package main.model;
 
 public class Gomma {
 
+    private Integer idGomme;
     private String model;
     private String manufacturer;
     private double price;
+    private double width;
+    private double height;
+    private double diameter;
+    private double weight;
+    private String speed;
+    private String season;
+    private String vehicle;
 
-    public Gomma(String model, String manufacturer, double price) {
+
+    public Gomma(Integer idGomme, String model, String manufacturer, double price, double width, double height, double diameter, double weight, String speed, String season, String vehicle) {
+        this.idGomme = idGomme;
         this.model = model;
         this.manufacturer = manufacturer;
         this.price = price;
+        this.width = width;
+        this.height = height;
+        this.diameter = diameter;
+        this.weight = weight;
+        this.speed = speed;
+        this.season = season;
+        this.vehicle = vehicle;
+    }
+
+    public Integer getIdGomme() {
+        return idGomme;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getDiameter() {
+        return diameter;
+    }
+
+    public void setDiameter(double diameter) {
+        this.diameter = diameter;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public String getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(String speed) {
+        this.speed = speed;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public String getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
     }
 
     public String getModel() {
@@ -36,6 +113,8 @@ public class Gomma {
         this.price = price;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,6 +127,8 @@ public class Gomma {
         return manufacturer != null ? manufacturer.equals(gomma.manufacturer) : gomma.manufacturer == null;
     }
 
+
+
     @Override
     public int hashCode() {
         int result;
@@ -59,9 +140,19 @@ public class Gomma {
         return result;
     }
 
+
     @Override
     public String toString() {
-        return "Model: " + model + "\nManufacturer: " +manufacturer + "\nPrice: "+price+"\n";
-
+        return  "IdGomme: " + idGomme + "\n" +
+                "Model: " + model + "\n" +
+                "Manufacturer: " + manufacturer +"\n" +
+                "Price: " + price + "\n" +
+                "Width: " + width + "\n" +
+                "Height: " + height + "\n" +
+                "Diameter: " + diameter + "\n" +
+                "Weight: " + weight + "\n" +
+                "Speed: " + speed + "\n" +
+                "Season: " + season + "\n" +
+                "Vehicle: " + vehicle + "\n";
     }
 }

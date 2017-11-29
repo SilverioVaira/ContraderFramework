@@ -12,6 +12,7 @@ public class GommaView implements View {
 
     private GommaService gommaService;
     private String mode;
+    private String role;
 
   public GommaView () {
       this.gommaService = new GommaService();
@@ -21,6 +22,7 @@ public class GommaView implements View {
     @Override
     public void showResults(Request request) {
        this.mode  = (String) request.get("mode");
+       role = request.get("role").toString();
     }
 
     @Override
@@ -41,7 +43,29 @@ public class GommaView implements View {
                 String manufacturer = getInput();
                 System.out.println("Prezzo:");
                 double price = Double.parseDouble(getInput());
-                gommaService.insertGomma(new Gomma(model, manufacturer, price));
+                System.out.println("Larghezza:");
+                double width = Double.parseDouble(getInput());
+                System.out.println("Altezza:");
+                double height = Double.parseDouble(getInput());
+                System.out.println("Diametro:");
+                double diameter = Double.parseDouble(getInput());
+                System.out.println("Carico:");
+                double weight = Double.parseDouble(getInput());
+                System.out.println("Velocità:");
+                String speed = getInput();
+                System.out.println("Stagione:");
+                String season = getInput();
+                System.out.println("Tipo Veicolo:");
+                String vehicle = getInput();
+                gommaService.insertGomma(new Gomma(null, model, manufacturer, price, width, height, diameter, weight, speed, season, vehicle));
+                break;
+
+            case "brandForType":
+                System.out.println("Scegli il tipo di veicolo");
+                List<String> brands = gommaService.getAllManufacturerForType(getInput());
+                brands.forEach(gomma -> System.out.println(gomma));
+                System.out.println("Scegli il brand dall'elenco");
+                getInput();
         }
     }
 
@@ -53,7 +77,9 @@ public class GommaView implements View {
 
     @Override
     public void submit() {
-        MainDispatcher.getInstance().callAction("Home", "doControl", null);
+        Request request = new Request();
+        request.put("role", role);
+        MainDispatcher.getInstance().callAction("Home", "doControl", request);
     }
 
 

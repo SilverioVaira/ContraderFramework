@@ -15,6 +15,9 @@ public class GommaController implements Controller {
             case 2:
                 request.put("mode", "all");
                 break;
+            case 4:
+                request.put("mode", "brandForType");
+                break;
         }
         MainDispatcher.getInstance().callView("Gomma", request);
 

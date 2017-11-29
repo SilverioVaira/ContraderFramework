@@ -20,6 +20,10 @@ public class GommaService {
     public boolean insertGomma (Gomma gomma) {
         return this.gommaDAO.insertGomma(gomma);
     }
+
+    public List<String> getAllManufacturerForType(String type){
+        return this.gommaDAO.getAllManufacturerForType(type);
+    }
 }
 
 
