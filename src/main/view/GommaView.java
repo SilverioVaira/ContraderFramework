@@ -28,13 +28,14 @@ public class GommaView implements View {
     @Override
     public void showOptions() {
         switch (mode) {
-            case "all":
+            case "all": {
                 List<Gomma> gomme = gommaService.getAllGomme();
                 System.out.println("----- Gomme disponibili -----");
                 System.out.println();
                 gomme.forEach(gomma -> System.out.println(gomma));
                 break;
-            case "insert":
+            }
+            case "insert": {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Inserisci i dati della nuova gomma:");
                 System.out.println("Modello:");
@@ -59,13 +60,32 @@ public class GommaView implements View {
                 String vehicle = getInput();
                 gommaService.insertGomma(new Gomma(null, model, manufacturer, price, width, height, diameter, weight, speed, season, vehicle));
                 break;
+            }
 
-            case "brandForType":
-                System.out.println("Scegli il tipo di veicolo");
-                List<String> brands = gommaService.getAllManufacturerForType(getInput());
-                brands.forEach(gomma -> System.out.println(gomma));
+            case "gommeForBrand": {
+                System.out.println("Scegli il tipo di veicolo: (auto | moto | commerciale)");
+                String typeVehicle = getInput();
+                System.out.println("\n------Elenco Brand-------\n");
+                List<String> brands = gommaService.getAllManufacturerForType(typeVehicle);
+
+                if (!brands.isEmpty())
+                    brands.forEach(brand -> System.out.println(brand));
+                else {
+                    System.out.println("\nNon ci sono gomme per il tipo di veicolo!!");
+                    break;
+                }
+
+                System.out.println("");
                 System.out.println("Scegli il brand dall'elenco");
-                getInput();
+                String brand = getInput();
+                List<Gomma> gomme = gommaService.getAllGommeForManufacturer(brand, typeVehicle);
+
+                if (!gomme.isEmpty())
+                gomme.forEach(gomma -> System.out.println(gomma));
+                else System.out.println("\nNon ci sono gomme per il brand!!");
+
+                break;
+            }
         }
     }
 

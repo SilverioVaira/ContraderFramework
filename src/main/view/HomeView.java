@@ -27,9 +27,8 @@ public class HomeView implements View {
                 System.out.println("-------MENU-------");
                 System.out.println("");
                 System.out.println("1) Inserisci gomma");
-                System.out.println("2) Visualizza gomme disponibili");
+                System.out.println("2) Visualizza tutte le gomme disponibili");
                 System.out.println("3) Logout");
-                System.out.println("4) Visualizza brand per tipologia del veicolo:");
                 this.choice = Integer.parseInt(getInput());
                 break;
 
@@ -38,8 +37,8 @@ public class HomeView implements View {
                 System.out.println("");
                 System.out.println("-------MENU-------");
                 System.out.println("");
-                System.out.println("2) Visualizza gomme disponibili");
-                System.out.println("4) Visualizza brand per tipologia del veicolo:");
+                System.out.println("1) Cerca gomme per Brand");
+                System.out.println("2) Visualizza tutte le gomme disponibili");
                 System.out.println("3) Logout");
                 this.choice = Integer.parseInt(getInput());
                 break;
@@ -48,18 +47,40 @@ public class HomeView implements View {
     }
 
     public void submit() {
-        if (choice < 1 || choice > 4) {
-            Request request = new Request();
-            request.put("role", role);
-            MainDispatcher.getInstance().callAction("Home", "doControl", request);
-        }
-        else if (choice == 3)
-            MainDispatcher.getInstance().callAction("Login", "doControl", null);
-        else {
-            Request request = new Request();
-            request.put("choice", choice);
-            request.put("role", role);
-            MainDispatcher.getInstance().callAction("Gomma", "doControl", request);
+
+        switch (role) {
+
+            case "admin":
+
+
+                if (choice < 1 || choice > 3) {
+                    Request request = new Request();
+                    request.put("role", role);
+                    MainDispatcher.getInstance().callAction("Home", "doControl", request);
+                } else if (choice == 3)
+                    MainDispatcher.getInstance().callAction("Login", "doControl", null);
+                else {
+                    Request request = new Request();
+                    request.put("choice", choice);
+                    request.put("role", role);
+                    MainDispatcher.getInstance().callAction("Gomma", "doControl", request);
+                }
+                break;
+
+            case "user":
+                if (choice < 1 || choice > 3) {
+                    Request request = new Request();
+                    request.put("role", role);
+                    MainDispatcher.getInstance().callAction("Home", "doControl", request);
+                } else if (choice == 3)
+                    MainDispatcher.getInstance().callAction("Login", "doControl", null);
+                else {
+                    Request request = new Request();
+                    request.put("choice", choice);
+                    request.put("role", role);
+                    MainDispatcher.getInstance().callAction("Gomma", "doControl", request);
+                }
+                break;
         }
     }
 

@@ -21,6 +21,10 @@ public class GommaService {
         return this.gommaDAO.insertGomma(gomma);
     }
 
+    public List<Gomma> getAllGommeForManufacturer(String brand, String type){
+        return this.gommaDAO.getAllGommeForManufacturer(brand, type);
+    }
+
     public List<String> getAllManufacturerForType(String type){
         return this.gommaDAO.getAllManufacturerForType(type);
     }
