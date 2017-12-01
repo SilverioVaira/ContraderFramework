@@ -17,7 +17,7 @@ public class GommaController implements Controller {
                         request.put("mode", "insert");
                         break;
                     case 2:
-                        request.put("mode", "all");
+                        request.put("mode", "allGomme");
                         break;
                 }
 
@@ -29,7 +29,10 @@ public class GommaController implements Controller {
                         request.put("mode", "gommeForBrand");
                         break;
                     case 2:
-                        request.put("mode", "all");
+                        request.put("mode", "allGomme");
+                        break;
+                    case 3:
+                        request.put("mode", "gommeForSize");
                         break;
                 }
 

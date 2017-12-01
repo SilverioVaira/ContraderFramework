@@ -28,7 +28,7 @@ public class GommaView implements View {
     @Override
     public void showOptions() {
         switch (mode) {
-            case "all": {
+            case "allGomme": {
                 List<Gomma> gomme = gommaService.getAllGomme();
                 System.out.println("----- Gomme disponibili -----");
                 System.out.println();
@@ -58,7 +58,9 @@ public class GommaView implements View {
                 String season = getInput();
                 System.out.println("Tipo Veicolo:");
                 String vehicle = getInput();
-                gommaService.insertGomma(new Gomma(null, model, manufacturer, price, width, height, diameter, weight, speed, season, vehicle));
+                System.out.println("Quantità:");
+                int quantity = Integer.parseInt(getInput());
+                gommaService.insertGomma(new Gomma(null, model, manufacturer, price, width, height, diameter, weight, speed, season, vehicle, quantity));
                 break;
             }
 
@@ -85,6 +87,46 @@ public class GommaView implements View {
                 else System.out.println("\nNon ci sono gomme per il brand!!");
 
                 break;
+            }
+
+            case "gommeForSize": {
+                List<Gomma> gomme = null;
+                String typeVehicle;
+                do {
+                    System.out.println("Scegli il tipo di veicolo: (auto | moto | commerciale)");
+                    typeVehicle = getInput();
+                } while(!typeVehicle.equals("auto") & !typeVehicle.equals("moto") & !typeVehicle.equals("commerciale"));
+
+                System.out.println("Inserisci Larghezza:");
+                double pWidth = Double.parseDouble(getInput());
+                System.out.println("Inserisci Altezza:");
+                double pHeight = Double.parseDouble(getInput());
+                System.out.println("Inserisci Diametro:");
+                double pDiameter = Double.parseDouble(getInput());
+
+                if (typeVehicle.equals("auto")) {
+                    System.out.println("Inserisci Stagione:");
+                    String pSeason = getInput();
+
+                    gomme = gommaService.getGommeForSize(pWidth, pHeight, pDiameter, pSeason, -1, null, typeVehicle);
+                }
+
+                else if (typeVehicle.equals("moto") | typeVehicle.equals("commerciale")) {
+                    System.out.println("Inserisci Carico:");
+                    double pWeight = Double.parseDouble(getInput());
+                    System.out.println("Inserisci Velocità:");
+                    String pSpeed = getInput();
+
+                    gomme = gommaService.getGommeForSize(pWidth, pHeight, pDiameter, null, pWeight, pSpeed, typeVehicle);
+                }
+
+                if (!gomme.isEmpty())
+                    gomme.forEach(gomma -> System.out.println(gomma));
+                else System.out.println("\nNon ci sono gomme per la dimensione cercata!!");
+
+                break;
+
+
             }
         }
     }
