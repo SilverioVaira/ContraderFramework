@@ -4,6 +4,7 @@ import main.controller.Request;
 import main.model.Gomma;
 import main.dao.GommaDAO;
 import main.service.GommaService;
+import main.service.VehicleService;
 
 import java.util.List;
 import java.util.Scanner;
@@ -11,11 +12,13 @@ import java.util.Scanner;
 public class GommaView implements View {
 
     private GommaService gommaService;
+    private VehicleService vehicleService;
     private String mode;
     private String role;
 
   public GommaView () {
       this.gommaService = new GommaService();
+      this.vehicleService = new VehicleService();
       this.mode = "all";
   }
 
@@ -122,13 +125,50 @@ public class GommaView implements View {
 
                 if (!gomme.isEmpty())
                     gomme.forEach(gomma -> System.out.println(gomma));
-                else System.out.println("\nNon ci sono gomme per la dimensione cercata!!");
+                else
+                    System.out.println("\nNon ci sono gomme per la dimensione cercata!!");
 
                 break;
 
 
             }
+
+            case "gommeById": {
+                System.out.println("Inserisci Marca: ");
+                String brand = getInput();
+                System.out.println("Inserisci Modello: ");
+                String model = getInput();
+                System.out.println("Inserisci Alimentazione: ");
+                String fuel = getInput();
+                System.out.println("Inserisci Versione: ");
+                String version = getInput();
+                System.out.println("Inserisci Cilindrata: ");
+                String capacity = getInput();
+
+                Integer idVehicle = vehicleService.getIdVehicle(brand,model,fuel,version,capacity);
+                if (idVehicle == null) {
+                    System.out.println("\nNon ci auto di questo tipo nel DB!!");
+                    break;
+
+                }
+
+                List<Integer> idGomme = gommaService.getCompatibilyGommeId(idVehicle);
+                if (!idGomme.isEmpty()) {
+                    for (Integer idGomma : idGomme) {
+                        Gomma gomma = gommaService.getGommeById(idGomma);
+                        System.out.println(gomma);
+                    }
+                }
+                else
+                    System.out.println("\nNon ci sono gomme compatibili con questo veicolo!!");
+
+                break;
+
+            }
+
         }
+
+
     }
 
     @Override

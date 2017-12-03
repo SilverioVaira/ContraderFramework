@@ -2,21 +2,25 @@ package main.model;
 
 public class Vehicle {
 
-    private int idVehicle;
+    private Integer idVehicle;
     private String brand;
+    private String model;
     private String fuel;
     private String version;
     private String capacity;
 
-    public Vehicle(int idVehicle, String brand, String fuel, String version, String capacity) {
+    public Vehicle(Integer idVehicle, String brand, String model, String fuel, String version, String capacity) {
         this.idVehicle = idVehicle;
         this.brand = brand;
+        this.model = model;
         this.fuel = fuel;
         this.version = version;
         this.capacity = capacity;
     }
 
-    public int getIdVehicle() {
+
+
+    public Integer getIdVehicle() {
         return idVehicle;
     }
 
@@ -26,6 +30,14 @@ public class Vehicle {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getFuel() {
@@ -60,6 +72,7 @@ public class Vehicle {
         Vehicle vehicle = (Vehicle) o;
 
         if (brand != null ? !brand.equals(vehicle.brand) : vehicle.brand != null) return false;
+        if (model != null ? !model.equals(vehicle.model) : vehicle.model != null) return false;
         if (fuel != null ? !fuel.equals(vehicle.fuel) : vehicle.fuel != null) return false;
         if (version != null ? !version.equals(vehicle.version) : vehicle.version != null) return false;
         return capacity != null ? capacity.equals(vehicle.capacity) : vehicle.capacity == null;
@@ -68,10 +81,21 @@ public class Vehicle {
     @Override
     public int hashCode() {
         int result = brand != null ? brand.hashCode() : 0;
+        result = 31 * result + (model != null ? model.hashCode() : 0);
         result = 31 * result + (fuel != null ? fuel.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return  "IdVehicle: " + idVehicle + "\n" +
+                "Brand: " + brand + "\n" +
+                "Model: " + model + "\n" +
+                "Fuel: " + fuel + "\n" +
+                "Version: " + version + "\n" +
+                "Capacity: " + capacity + "\n";
     }
 }
 

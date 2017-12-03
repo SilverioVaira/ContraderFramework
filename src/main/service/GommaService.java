@@ -33,6 +33,15 @@ public class GommaService {
     public List<Gomma> getGommeForSize( double pWidth, double pHeight, double pDiameter,String pSeason, double pWeight, String pSpeed, String typeVehicle){
         return this.gommaDAO.getGommeForSize(pWidth, pHeight, pDiameter, pSeason, pWeight, pSpeed, typeVehicle);
     }
+
+    public List<Integer> getCompatibilyGommeId(Integer pIdVehicle){
+        return  this.gommaDAO.getCompatibilyGommeId(pIdVehicle);
+    }
+
+    public Gomma getGommeById( Integer pIdGomma){
+        return  this.gommaDAO.getGommeById(pIdGomma);
+    }
+
 }
 
 

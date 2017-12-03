@@ -34,6 +34,9 @@ public class GommaController implements Controller {
                     case 3:
                         request.put("mode", "gommeForSize");
                         break;
+                    case 4:
+                        request.put("mode", "gommeById");
+                        break;
                 }
 
                 break;

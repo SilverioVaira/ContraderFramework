@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class AccessView implements View {
 
     private int access;
+    boolean check = false;
 
     public void showResults (Request request){}
 
@@ -16,13 +17,19 @@ public class AccessView implements View {
 
         System.out.println("\nBenvenuto in ContraderFramework\n");
         System.out.println("1 -> Accedi || 2 -> Registrati\n");
-        access = Integer.parseInt(getInput());
+        try {
+            access = Integer.parseInt(getInput());
+        }
+        catch (NumberFormatException e){
+            check = true;
+        }
+
 
     }
 
     public void submit(){
 
-        if (access < 1 | access > 2) MainDispatcher.getInstance().callView("Access" , null);
+        if (access < 1 | access > 2 | check) MainDispatcher.getInstance().callView("Access" , null);
         if (access == 1) {
             MainDispatcher.getInstance().callAction("Login", "doControl", null);
         }

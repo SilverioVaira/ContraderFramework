@@ -45,6 +45,7 @@ drop table if exists vehicle;
 create table vehicle (
 	idVehicle int(20) not null auto_increment,
     brand varchar(50),
+    model varchar(50),
     fuel varchar(50),
     version varchar(50),
     capacity varchar(50),

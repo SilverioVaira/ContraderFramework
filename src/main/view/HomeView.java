@@ -10,6 +10,7 @@ public class HomeView implements View {
 
     private int choice;
     private String role;
+    boolean check = false;
 
     public void showResults(Request request) {
 
@@ -29,8 +30,10 @@ public class HomeView implements View {
                 System.out.println("1) Inserisci gomma");
                 System.out.println("2) Visualizza tutte le gomme disponibili");
                 System.out.println("3) Visualizza elenco degli utenti");
-                System.out.println("4) Logout");
-                this.choice = Integer.parseInt(getInput());
+                System.out.println("4) Inserisci veicolo");
+                System.out.println("5) Visualizza elenco dei veicoli");
+                System.out.println("6) Logout");
+
                 break;
 
             case "user":
@@ -41,9 +44,17 @@ public class HomeView implements View {
                 System.out.println("1) Cerca gomme per Brand");
                 System.out.println("2) Visualizza tutte le gomme disponibili");
                 System.out.println("3) Cerca gomme per dimensione");
-                System.out.println("4) Logout");
-                this.choice = Integer.parseInt(getInput());
+                System.out.println("4) Cerca gomme compatibili all'auto");
+                System.out.println("5) Logout");
+
                 break;
+        }
+
+        try {
+            this.choice = Integer.parseInt(getInput());
+        }
+        catch (NumberFormatException e){
+            check = true;
         }
 
     }
@@ -55,17 +66,23 @@ public class HomeView implements View {
             case "admin":
 
 
-                if (choice < 1 || choice > 4) {
+                if (choice < 1 || choice > 6 || check) {
                     Request request = new Request();
                     request.put("role", role);
                     MainDispatcher.getInstance().callAction("Home", "doControl", request);
-                } else if (choice == 4)
+                } else if (choice == 6)
                     MainDispatcher.getInstance().callView("Access", null);
                 else if (choice == 3) {
                     Request request = new Request();
                     request.put("choice", choice);
                     request.put("role", role);
                     MainDispatcher.getInstance().callAction("User", "doControl", request);
+                }
+                else if (choice == 4 | choice == 5){
+                    Request request = new Request();
+                    request.put("choice", choice);
+                    request.put("role", role);
+                    MainDispatcher.getInstance().callAction("Vehicle", "doControl", request);
                 }
                 else {
                     Request request = new Request();
@@ -76,11 +93,11 @@ public class HomeView implements View {
                 break;
 
             case "user":
-                if (choice < 1 || choice > 4) {
+                if (choice < 1 || choice > 5) {
                     Request request = new Request();
                     request.put("role", role);
                     MainDispatcher.getInstance().callAction("Home", "doControl", request);
-                } else if (choice == 4)
+                } else if (choice == 5)
                     MainDispatcher.getInstance().callView("Access", null);
                 else {
                     Request request = new Request();

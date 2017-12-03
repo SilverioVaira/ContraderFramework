@@ -3,6 +3,7 @@ package main.dao;
 import main.ConnectionSingleton;
 import main.controller.GestoreEccezioni;
 import main.model.Gomma;
+import main.model.Vehicle;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -197,6 +198,75 @@ public class GommaDAO {
         }
 
         return gomme;
+
+    }
+
+    public List<Integer> getCompatibilyGommeId(Integer pIdVehicle){
+        List<Integer> gommeId = new ArrayList<>();
+        Connection connection = ConnectionSingleton.getInstance();
+        ResultSet resultSet;
+
+        try {
+
+            String QUERY = "select * from compatibility where idVehicle = ?";
+
+            PreparedStatement statement = connection.prepareStatement(QUERY);
+            statement.setInt(1, pIdVehicle);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+
+                Integer idGomme = resultSet.getInt("idGomme");
+                gommeId.add(idGomme);
+
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return gommeId;
+    }
+
+    public Gomma getGommeById( Integer pIdGomma){
+
+        Gomma gomma = null;
+        Connection connection = ConnectionSingleton.getInstance();
+        ResultSet resultSet;
+
+        try {
+
+            String QUERY = "select * from contrader.gomme where idGomme = ?";
+
+            PreparedStatement statement = connection.prepareStatement(QUERY);
+            statement.setDouble(1, pIdGomma);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+
+                Integer idGomme = resultSet.getInt("idGomme");
+                String model = resultSet.getString("model");
+                String manufacturer = resultSet.getString("manufacturer");
+                double price = resultSet.getDouble("price");
+                double width = resultSet.getDouble("width");
+                double height = resultSet.getDouble("height");
+                double diameter = resultSet.getDouble("diameter");
+                double weight = resultSet.getDouble("weight");
+                String speed = resultSet.getString("speed");
+                String season = resultSet.getString("season");
+                String vehicle = resultSet.getString("vehicle");
+                int quantity = resultSet.getInt("quantity");
+
+                gomma = new Gomma(idGomme, model, manufacturer, price, width, height, diameter, weight, speed, season, vehicle, quantity);
+
+
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return gomma;
 
     }
 }
